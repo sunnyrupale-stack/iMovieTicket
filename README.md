@@ -100,7 +100,7 @@ npm start
 ```
 
 ### 🌐 Access URLs:
-- **Live Public HTTPS Link**: [**https://63171cbfd6e3fb.lhr.life**](https://63171cbfd6e3fb.lhr.life)
+- **Live Public HTTPS Link**: [**https://478c7eebcb1ae7.lhr.life**](https://478c7eebcb1ae7.lhr.life)
 - **Localhost**: [**http://localhost:5000**](http://localhost:5000)
 - **Local Network (Wi-Fi / Mobile)**: [**http://10.10.149.128:5000**](http://10.10.149.128:5000)
 
