@@ -2,6 +2,8 @@ const Show = require('../models/Show');
 const Booking = require('../models/Booking');
 const Movie = require('../models/Movie');
 const Cinema = require('../models/Cinema');
+const Payment = require('../models/Payment');
+const Notification = require('../models/Notification');
 const generateBookingReference = require('../utils/generateBookingReference');
 const { sendBookingConfirmation, sendCancellationNotice } = require('./notificationService');
 
@@ -117,7 +119,20 @@ const createBookingAtomic = async ({
     paymentMethod,
   });
 
-  // 6. Broadcast real-time seat update via Socket.IO
+  // 6. Create Payment Record (Simulated Gateway Transaction)
+  const transactionId = `TXN-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+  const payment = await Payment.create({
+    bookingId: booking._id,
+    userId,
+    amount: totalAmount,
+    currency: 'USD',
+    paymentMethod,
+    transactionId,
+    status: 'success',
+    paymentGateway: 'Simulated Gateway (Card/UPI/NetBanking)',
+  });
+
+  // 7. Broadcast real-time seat update via Socket.IO
   if (io) {
     io.to(`show_${showId}`).emit('seatsUpdated', {
       showId: showId.toString(),
@@ -126,11 +141,20 @@ const createBookingAtomic = async ({
     });
   }
 
-  // 7. Fire and forget notification
+  // 8. Fetch movie/cinema and dispatch notifications
   const [movie, cinema] = await Promise.all([
     Movie.findById(show.movieId),
     Cinema.findById(show.cinemaId),
   ]);
+
+  // Persist in-app Notification
+  await Notification.create({
+    userId,
+    title: `Ticket Confirmed: ${movie ? movie.title : 'Movie'}`,
+    message: `Your reservation #${bookingReference} for ${movie ? movie.title : 'Movie'} at ${cinema ? cinema.name : 'Cinema'} (${show.showDate} at ${show.startTime}) is confirmed. Total: $${totalAmount}.`,
+    type: 'booking_confirmed',
+    bookingId: booking._id,
+  }).catch((err) => console.error('Notification db error:', err.message));
 
   if (movie && cinema && user) {
     sendBookingConfirmation(booking, user, movie, cinema, show).catch((err) =>
@@ -140,6 +164,7 @@ const createBookingAtomic = async ({
 
   return {
     booking,
+    payment,
     movie,
     cinema,
     show: updatedShow,
@@ -193,6 +218,28 @@ const cancelBookingService = async ({ bookingId, userId, isAdmin = false, io = n
   booking.cancellationReason = 'User requested cancellation';
   booking.cancelledAt = new Date();
   await booking.save();
+
+  // Update associated payment record to refunded
+  const refundTransactionId = `REF-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+  await Payment.findOneAndUpdate(
+    { bookingId: booking._id },
+    {
+      $set: {
+        status: 'refunded',
+        refundTransactionId,
+        refundedAt: new Date(),
+      },
+    }
+  );
+
+  // In-app cancellation notification
+  await Notification.create({
+    userId: booking.userId,
+    title: `Ticket Cancelled: #${booking.bookingReference}`,
+    message: `Your reservation #${booking.bookingReference} has been cancelled. Refund of $${booking.totalAmount} has been initiated to your original payment method.`,
+    type: 'booking_cancelled',
+    bookingId: booking._id,
+  }).catch((err) => console.error('Notification db error:', err.message));
 
   // Broadcast real-time seat release
   if (io) {

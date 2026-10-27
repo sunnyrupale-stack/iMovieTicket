@@ -9,12 +9,17 @@ const { Server } = require('socket.io');
 const { connectDB } = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
+const rateLimit = require('express-rate-limit');
+
 // Route Imports
 const authRoutes = require('./routes/authRoutes');
 const movieRoutes = require('./routes/movieRoutes');
 const cinemaRoutes = require('./routes/cinemaRoutes');
 const showRoutes = require('./routes/showRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
 // Models for auto-seeding check
@@ -54,6 +59,27 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Express Rate Limiting (Protection against DDoS and Brute Force attacks)
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many requests from this IP, please try again after 15 minutes.',
+  },
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 40,
+  message: {
+    success: false,
+    message: 'Too many authentication attempts, please try again after 15 minutes.',
+  },
+});
+
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
@@ -67,12 +93,23 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Apply rate limiting
+app.use('/api', apiLimiter);
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/register', authLimiter);
+
+// Serve uploaded media
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+
 // Mount API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/cinemas', cinemaRoutes);
 app.use('/api/shows', showRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/upload', uploadRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Serve static frontend build if present (for single-port full-stack deployment)

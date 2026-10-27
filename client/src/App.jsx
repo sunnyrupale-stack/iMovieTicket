@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AuthProvider } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -37,6 +40,17 @@ function App() {
       <AuthProvider>
         <SocketProvider>
           <div className="d-flex flex-column min-vh-100">
+            <ToastContainer
+              position="top-right"
+              autoClose={3500}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
             <ScrollToTop />
             <Navbar />
             <main className="flex-grow-1">
