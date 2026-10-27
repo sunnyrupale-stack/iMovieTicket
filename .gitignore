@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Production builds
+dist/
+client/dist/
+build/
+
+# Environment files (Keep credentials private!)
+.env
+.env.local
+.env.*.local
+server/.env
+
+# Temporary and log files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# In-memory MongoDB binaries/cache
+.mongo-memory-server/
+
+# GitHub desktop tutorial artifact
+desktop-tutorial/
