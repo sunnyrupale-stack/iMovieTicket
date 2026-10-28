@@ -1,0 +1,166 @@
+.add-theatre-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0b0e14;
+
+  .add-theatre-main-content {
+    flex: 1;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+
+    .brand-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 2rem;
+
+      .red {
+        color: #e50914;
+      }
+    }
+
+    .theatre-form-card {
+      background-color: #121620;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 2rem 2.5rem;
+      max-width: 560px;
+      margin: 0 auto 3.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+      .theatre-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+
+          label {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            font-weight: 500;
+          }
+
+          &.span-2 {
+            grid-column: span 2;
+          }
+        }
+
+        .form-actions {
+          margin-top: 1rem;
+          text-align: center;
+
+          .btn-submit-theatre {
+            background-color: #e50914;
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 3rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover:not(:disabled) {
+              background-color: #ff2a42;
+              transform: translateY(-2px);
+              box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+            }
+
+            &:disabled {
+              opacity: 0.6;
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+
+    .existing-theatres-section {
+      .section-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+
+        .red {
+          color: #e50914;
+        }
+      }
+
+      .theatres-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.25rem;
+
+        .theatre-card {
+          background-color: #121620;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 10px;
+          padding: 1.25rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+
+          .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            h3 {
+              font-size: 1.1rem;
+              font-weight: 700;
+              color: #ffffff;
+              display: flex;
+              align-items: center;
+              gap: 0.4rem;
+            }
+
+            .btn-trash {
+              background: transparent;
+              border: none;
+              color: #64748b;
+              cursor: pointer;
+
+              &:hover {
+                color: #ff4d4f;
+              }
+            }
+          }
+
+          .theatre-location {
+            color: #94a3b8;
+            font-size: 0.85rem;
+          }
+
+          .prices-summary {
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .add-theatre-page-container .add-theatre-main-content .theatre-form-card .theatre-form {
+    grid-template-columns: 1fr;
+    .form-group.span-2,
+    .form-actions.span-2 {
+      grid-column: span 1;
+    }
+  }
+}

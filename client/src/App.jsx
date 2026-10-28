@@ -1,100 +1,136 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { SocketProvider } from './context/SocketContext';
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import UserProtection from "./components/protection/UserProtection";
+import AdminProtection from "./components/protection/AdminProtection";
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+const Landing = lazy(() => import("./pages/landing/Landing"));
+const Login = lazy(() => import("./pages/login/Login"));
+const Register = lazy(() => import("./pages/register/Register"));
+const Home = lazy(() => import("./pages/home/Home"));
+const AddShow = lazy(() => import("./pages/addShow/AddShow"));
+const SeatsPage = lazy(() => import("./pages/seatsPage/SeatsPage"));
+const AdminLogin = lazy(() => import("./pages/login/AdminLogin"));
+const MovieDetails = lazy(() => import("./pages/movieDetails/MovieDetails"));
+const AddTheatre = lazy(() => import("./pages/addTheatre/AddTheatre"));
+const MovieShows = lazy(() => import("./pages/movieShows/MovieShows"));
+const Admin = lazy(() => import("./pages/admin/Admin"));
+const AddMovie = lazy(() => import("./pages/addMovie/AddMovie"));
+const FavoriteShows = lazy(() => import("./pages/favoriteShows/FavoriteShows"));
+const Profile = lazy(() => import("./pages/profile/Profile"));
+const AdminRegister = lazy(() => import("./pages/register/AdminRegister"));
+const Bookings = lazy(() => import("./pages/bookings/Bookings"));
+const EditUserDetails = lazy(() => import("./pages/editUserDetails/EditUserDetails"));
+const AdminBookings = lazy(() => import("./pages/adminBookings/AdminBookings"));
 
-// Components
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import ProtectedRoute from './components/ProtectedRoute';
-import AdminRoute from './components/AdminRoute';
+import Loader from "./components/loader/Loader";
 
-// Pages
-import HomePage from './pages/HomePage';
-import MoviesPage from './pages/MoviesPage';
-import MovieDetailsPage from './pages/MovieDetailsPage';
-import SeatSelectionPage from './pages/SeatSelectionPage';
-import BookingConfirmationPage from './pages/BookingConfirmationPage';
-import MyBookingsPage from './pages/MyBookingsPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import AboutPage from './pages/AboutPage';
-import AdminDashboardPage from './pages/AdminDashboardPage';
-import NotFoundPage from './pages/NotFoundPage';
-
-// Scroll to top on route navigation
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
-};
-
-function App() {
+const App = () => {
   return (
-    <Router>
-      <AuthProvider>
-        <SocketProvider>
-          <div className="d-flex flex-column min-vh-100">
-            <ToastContainer
-              position="top-right"
-              autoClose={3500}
-              hideProgressBar={false}
-              newestOnTop
-              closeOnClick
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="dark"
-            />
-            <ScrollToTop />
-            <Navbar />
-            <main className="flex-grow-1">
-              <Routes>
-                {/* Public Routes */}
-                <Route path="/" element={<HomePage />} />
-                <Route path="/movies" element={<MoviesPage />} />
-                <Route path="/movies/:id" element={<MovieDetailsPage />} />
-                <Route path="/seat-selection/:showId" element={<SeatSelectionPage />} />
-                <Route path="/booking-confirmation/:bookingId" element={<BookingConfirmationPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/about" element={<AboutPage />} />
-
-                {/* User Protected Routes */}
-                <Route
-                  path="/my-bookings"
-                  element={
-                    <ProtectedRoute>
-                      <MyBookingsPage />
-                    </ProtectedRoute>
-                  }
-                />
-
-                {/* Admin Protected Routes */}
-                <Route
-                  path="/admin"
-                  element={
-                    <AdminRoute>
-                      <AdminDashboardPage />
-                    </AdminRoute>
-                  }
-                />
-
-                {/* 404 Catch All */}
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </main>
-            <Footer />
+    <BrowserRouter>
+      <ToastContainer position="top-right" autoClose={3000} theme="dark" />
+      <Suspense
+        fallback={
+          <div className="loadingContainer">
+            <Loader />
           </div>
-        </SocketProvider>
-      </AuthProvider>
-    </Router>
+        }
+      >
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Landing />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/movie/:id" element={<MovieDetails />} />
+          <Route path="/movieshows/:movieName" element={<MovieShows />} />
+
+          {/* User Protected Routes */}
+          <Route path="/seats/:showId" element={<SeatsPage />} />
+          <Route
+            path="/bookings"
+            element={
+              <UserProtection>
+                <Bookings />
+              </UserProtection>
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <UserProtection>
+                <FavoriteShows />
+              </UserProtection>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <UserProtection>
+                <Profile />
+              </UserProtection>
+            }
+          />
+          <Route
+            path="/edituserdetails"
+            element={
+              <UserProtection>
+                <EditUserDetails />
+              </UserProtection>
+            }
+          />
+
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/register" element={<AdminRegister />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminProtection>
+                <Admin />
+              </AdminProtection>
+            }
+          />
+          <Route
+            path="/admin/addmovie"
+            element={
+              <AdminProtection>
+                <AddMovie />
+              </AdminProtection>
+            }
+          />
+          <Route
+            path="/admin/addtheatre"
+            element={
+              <AdminProtection>
+                <AddTheatre />
+              </AdminProtection>
+            }
+          />
+          <Route
+            path="/admin/addshow"
+            element={
+              <AdminProtection>
+                <AddShow />
+              </AdminProtection>
+            }
+          />
+          <Route
+            path="/admin/bookings"
+            element={
+              <AdminProtection>
+                <AdminBookings />
+              </AdminProtection>
+            }
+          />
+
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

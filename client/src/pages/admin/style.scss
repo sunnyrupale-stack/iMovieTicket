@@ -1,0 +1,330 @@
+.admin-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0b0e14;
+
+  .admin-main-content {
+    flex: 1;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+
+    .admin-actions-bar {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+      .btn-admin-nav {
+        background-color: #161b26;
+        border: 1px solid rgba(229, 9, 20, 0.3);
+        color: #ffffff;
+        padding: 0.65rem 1.4rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: #e50914;
+          border-color: #e50914;
+          transform: translateY(-2px);
+        }
+      }
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+
+      .stat-card {
+        background-color: #121620;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .stat-label {
+          color: #94a3b8;
+          font-size: 0.88rem;
+          font-weight: 500;
+        }
+
+        .stat-val {
+          font-size: 2rem;
+          font-weight: 800;
+          color: #ffffff;
+        }
+
+        &.revenue .stat-val {
+          color: #10b981;
+        }
+      }
+    }
+
+    .admin-section {
+      margin-bottom: 3rem;
+
+      .section-heading {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 1.5rem;
+
+        .red {
+          color: #e50914;
+        }
+      }
+
+      .no-items {
+        color: #94a3b8;
+        font-style: italic;
+      }
+
+      .shows-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+
+        @media (max-width: 1200px) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        @media (max-width: 800px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        @media (max-width: 500px) {
+          grid-template-columns: 1fr;
+        }
+
+        .admin-show-card {
+          background-color: #121620;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 10px;
+          padding: 1.25rem;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          transition: border-color 0.2s ease;
+
+          &:hover {
+            border-color: #e50914;
+          }
+
+          .card-top-icon {
+            margin-bottom: 0.75rem;
+          }
+
+          .show-info {
+            p {
+              font-size: 0.88rem;
+              color: #cbd5e1;
+              margin-bottom: 0.3rem;
+
+              strong {
+                color: #ffffff;
+              }
+
+              .show-status-tag {
+                font-size: 0.72rem;
+                font-weight: 700;
+                padding: 0.15rem 0.45rem;
+                border-radius: 4px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+
+                &.active {
+                  color: #22c55e;
+                  background-color: rgba(34, 197, 94, 0.12);
+                  border: 1px solid rgba(34, 197, 94, 0.3);
+                }
+
+                &.cancelled {
+                  color: #ef4444;
+                  background-color: rgba(239, 68, 68, 0.12);
+                  border: 1px solid rgba(239, 68, 68, 0.35);
+                }
+              }
+            }
+          }
+
+          &.show-cancelled {
+            opacity: 0.75;
+            border-color: rgba(239, 68, 68, 0.3);
+            background-color: rgba(239, 68, 68, 0.03);
+          }
+
+          .card-bottom-actions {
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+
+            .btn-cancel-show {
+              background: transparent;
+              border: 1px solid rgba(255, 77, 79, 0.35);
+              color: #ff4d4f;
+              font-size: 0.75rem;
+              font-weight: 600;
+              padding: 0.35rem 0.65rem;
+              border-radius: 4px;
+              cursor: pointer;
+              transition: all 0.2s ease;
+
+              &:hover {
+                background-color: rgba(255, 77, 79, 0.18);
+                border-color: #ff4d4f;
+              }
+            }
+
+            .btn-trash-action {
+              background: transparent;
+              border: 1px solid rgba(255, 77, 79, 0.3);
+              color: #ff4d4f;
+              width: 34px;
+              height: 34px;
+              border-radius: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              transition: all 0.2s ease;
+
+              &:hover {
+                background-color: rgba(255, 77, 79, 0.2);
+                border-color: #ff4d4f;
+              }
+            }
+          }
+        }
+      }
+
+      .section-header-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.25rem;
+
+        .section-heading {
+          margin-bottom: 0;
+        }
+
+        .view-all-link {
+          color: #e50914;
+          font-size: 0.88rem;
+          font-weight: 600;
+          text-decoration: none;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: #ff4d4f;
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .admin-bookings-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+
+        .admin-booking-row {
+          background-color: #121620;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 8px;
+          padding: 1rem 1.25rem;
+          display: grid;
+          grid-template-columns: 1.5fr 1.5fr 2fr 1fr;
+          align-items: center;
+          gap: 1rem;
+          transition: all 0.2s ease;
+
+          &.booking-cancelled {
+            opacity: 0.72;
+            background-color: rgba(239, 68, 68, 0.03);
+            border-color: rgba(239, 68, 68, 0.25);
+          }
+
+          .booking-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            font-size: 0.88rem;
+            color: #cbd5e1;
+
+            .user-email-tag {
+              color: #ffffff;
+              font-weight: 600;
+            }
+
+            .booking-id-tag {
+              font-size: 0.75rem;
+              color: #94a3b8;
+              font-family: monospace;
+            }
+
+            .movie-tag {
+              color: #ffffff;
+              font-weight: 600;
+            }
+
+            .theatre-tag,
+            .seats-tag {
+              font-size: 0.8rem;
+              color: #94a3b8;
+            }
+
+            &.right {
+              align-items: flex-end;
+
+              .amount-tag {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: #e50914;
+              }
+
+              .status-badge {
+                font-size: 0.72rem;
+                font-weight: 700;
+                color: #10b981;
+                background-color: rgba(16, 185, 129, 0.1);
+                border: 1px solid rgba(16, 185, 129, 0.3);
+                padding: 0.18rem 0.55rem;
+                border-radius: 4px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+
+                &.cancelled {
+                  color: #ef4444;
+                  background-color: rgba(239, 68, 68, 0.12);
+                  border-color: rgba(239, 68, 68, 0.35);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-page-container .admin-main-content .admin-section .admin-bookings-list .admin-booking-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}

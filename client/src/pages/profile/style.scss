@@ -1,0 +1,188 @@
+.profile-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0b0e14;
+
+  .profile-main-content {
+    flex: 1;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+
+    .back-link {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+
+      &:hover {
+        color: #e50914;
+      }
+    }
+
+    .profile-card {
+      background-color: #121620;
+      border: 1px solid rgba(229, 9, 20, 0.4);
+      border-radius: 14px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+      .profile-avatar-circle {
+        width: 90px;
+        height: 90px;
+        background-color: rgba(229, 9, 20, 0.15);
+        border: 2px solid #e50914;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.25rem;
+      }
+
+      .profile-username {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 0.25rem;
+      }
+
+      .profile-badge {
+        display: inline-block;
+        background-color: rgba(255, 255, 255, 0.08);
+        color: #94a3b8;
+        padding: 0.2rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        margin-bottom: 2rem;
+      }
+
+      .profile-details-list {
+        background-color: #0b0e14;
+        border-radius: 10px;
+        padding: 1.25rem;
+        margin-bottom: 2rem;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+
+        .detail-row {
+          display: flex;
+          justify-content: space-between;
+          font-size: 0.9rem;
+
+          .detail-label {
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+          }
+
+          .detail-val {
+            color: #ffffff;
+            font-weight: 500;
+          }
+        }
+      }
+
+      .profile-actions-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.85rem;
+
+        .btn-profile-action {
+          background-color: #1a202c;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: #ffffff;
+          padding: 0.75rem;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.4rem;
+          text-decoration: none;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover {
+            border-color: #e50914;
+            background-color: rgba(229, 9, 20, 0.15);
+          }
+
+          &.edit-btn {
+            background-color: #e50914;
+            border-color: #e50914;
+
+            &:hover {
+              background-color: #ff2a42;
+            }
+          }
+
+          &.logout-btn {
+            grid-column: span 2;
+            color: #ff4d4f;
+            border-color: rgba(255, 77, 79, 0.3);
+
+            &:hover {
+              background-color: rgba(255, 77, 79, 0.15);
+            }
+          }
+        }
+      }
+
+      &.edit-card {
+        text-align: left;
+
+        .edit-user-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+
+          .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+
+            label {
+              font-size: 0.88rem;
+              color: #cbd5e1;
+            }
+          }
+
+          .actions-row {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+
+            .btn-cancel {
+              flex: 1;
+              background: transparent;
+              border: 1px solid rgba(255, 255, 255, 0.2);
+              color: #94a3b8;
+              border-radius: 8px;
+              padding: 0.7rem;
+              cursor: pointer;
+
+              &:hover {
+                color: #ffffff;
+              }
+            }
+
+            .btn-imovies-primary {
+              flex: 2;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,307 @@
+.movie-details-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0b0e14;
+
+  .movie-details-main {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #e50914;
+      }
+    }
+
+    .movie-hero-card {
+      background-color: #121620;
+      border: 1px solid rgba(229, 9, 20, 0.3);
+      border-radius: 14px;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2.5rem;
+
+      .poster-col {
+        .details-poster {
+          width: 100%;
+          border-radius: 10px;
+          aspect-ratio: 2 / 3;
+          object-fit: cover;
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+        }
+      }
+
+      .info-col {
+        display: flex;
+        flex-direction: column;
+
+        .title-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+
+          .movie-heading {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.2;
+          }
+
+          .fav-button {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background: rgba(229, 9, 20, 0.2);
+              border-color: #e50914;
+            }
+          }
+        }
+
+        .meta-badges {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+          margin-bottom: 1.25rem;
+
+          .badge-cert {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.85rem;
+          }
+
+          .badge-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+          }
+
+          .badge-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            background-color: rgba(245, 197, 24, 0.15);
+            color: #f5c518;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+          }
+        }
+
+        .genres-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+
+          .genre-tag {
+            background-color: rgba(229, 9, 20, 0.15);
+            color: #ff808d;
+            font-size: 0.82rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 16px;
+            font-weight: 500;
+          }
+        }
+
+        .description-box {
+          margin-bottom: 1.25rem;
+
+          h3 {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 0.4rem;
+          }
+
+          p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.95rem;
+          }
+        }
+
+        .cast-box {
+          margin-bottom: 1.5rem;
+
+          h4 {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 0.2rem;
+          }
+
+          p {
+            color: #ffffff;
+            font-size: 0.9rem;
+          }
+        }
+
+        .hero-cta {
+          margin-top: auto;
+          padding-top: 1rem;
+
+          .book-now-btn {
+            font-size: 1.05rem;
+            padding: 0.8rem 2.2rem;
+            border-radius: 8px;
+          }
+        }
+      }
+    }
+
+    .trailer-section {
+      margin-bottom: 2.5rem;
+
+      .section-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 1.25rem;
+      }
+
+      .trailer-video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+        border-radius: 12px;
+        border: 1px solid rgba(229, 9, 20, 0.3);
+
+        iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .reviews-section {
+      .section-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+      }
+
+      .add-review-card {
+        background-color: #121620;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+
+        h3 {
+          font-size: 1.15rem;
+          margin-bottom: 1rem;
+        }
+
+        .rating-select-row {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1rem;
+
+          label {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+          }
+
+          .rating-dropdown {
+            width: auto !important;
+            padding: 0.4rem 0.8rem !important;
+          }
+        }
+
+        .review-textarea {
+          margin-bottom: 1rem;
+        }
+      }
+
+      .reviews-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .no-reviews {
+          color: #94a3b8;
+          font-style: italic;
+        }
+
+        .review-card {
+          background-color: #121620;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 10px;
+          padding: 1.2rem;
+
+          .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+
+            .reviewer-name {
+              font-weight: 600;
+              color: #ffffff;
+            }
+
+            .review-rating {
+              color: #f5c518;
+              font-weight: 700;
+              font-size: 0.9rem;
+            }
+          }
+
+          .review-comment {
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            margin-bottom: 0.5rem;
+          }
+
+          .review-date {
+            color: #64748b;
+            font-size: 0.78rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 860px) {
+  .movie-details-page .movie-details-main .movie-hero-card {
+    grid-template-columns: 1fr;
+  }
+}

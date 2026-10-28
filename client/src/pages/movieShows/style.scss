@@ -1,0 +1,187 @@
+.movie-shows-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0b0e14;
+
+  .movie-shows-main {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+
+    .movie-shows-header {
+      text-align: center;
+      margin-bottom: 2rem;
+
+      .movie-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 0.5rem;
+
+        .red-accent {
+          color: #e50914;
+        }
+      }
+
+      .subtitle {
+        color: #94a3b8;
+        font-size: 1rem;
+      }
+    }
+
+    .no-shows-found,
+    .error-message {
+      text-align: center;
+      padding: 4rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      color: #94a3b8;
+    }
+
+    .date-selector-bar {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+      .date-pill {
+        background-color: #121620;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 0.65rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+        cursor: pointer;
+        min-width: 90px;
+        transition: all 0.2s ease;
+
+        .day-name {
+          font-size: 0.8rem;
+          color: #94a3b8;
+          text-transform: uppercase;
+        }
+
+        .day-num {
+          font-size: 0.95rem;
+          font-weight: 700;
+          color: #ffffff;
+        }
+
+        &:hover {
+          border-color: rgba(229, 9, 20, 0.5);
+          background-color: #1a202c;
+        }
+
+        &.active {
+          background-color: #e50914;
+          border-color: #e50914;
+          box-shadow: 0 4px 12px rgba(229, 9, 20, 0.35);
+
+          .day-name,
+          .day-num {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    .theatres-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .theatre-show-card {
+        background-color: #121620;
+        border: 1px solid rgba(229, 9, 20, 0.25);
+        border-radius: 12px;
+        padding: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        transition: border-color 0.2s ease;
+
+        &:hover {
+          border-color: rgba(229, 9, 20, 0.5);
+        }
+
+        .theatre-info {
+          .theatre-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.35rem;
+          }
+
+          .theatre-tag {
+            font-size: 0.8rem;
+            color: #64748b;
+          }
+        }
+
+        .showtimes-grid {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.85rem;
+
+          .showtime-btn {
+            background-color: #1a202c;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 0.6rem 1.1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            .time-text {
+              font-size: 0.95rem;
+              font-weight: 600;
+              color: #ffffff;
+              display: flex;
+              align-items: center;
+              gap: 0.3rem;
+            }
+
+            .pricing-preview {
+              font-size: 0.72rem;
+              color: #94a3b8;
+            }
+
+            &:hover {
+              border-color: #e50914;
+              background-color: rgba(229, 9, 20, 0.15);
+              transform: translateY(-2px);
+
+              .time-text {
+                color: #ff808d;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .movie-shows-page .movie-shows-main .theatres-list .theatre-show-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,112 @@
+.landing-page-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #161c28 0%, #0b0e14 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(229, 9, 20, 0.15) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .landing-content {
+    text-align: center;
+    max-width: 750px;
+    padding: 2.5rem;
+    position: relative;
+    z-index: 1;
+
+    .landing-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 1.25rem;
+      letter-spacing: -1px;
+
+      .red-accent {
+        color: #e50914;
+        text-shadow: 0 0 25px rgba(229, 9, 20, 0.4);
+      }
+    }
+
+    .landing-subtitle {
+      font-size: 1.25rem;
+      color: #94a3b8;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .landing-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+
+      .btn-signin {
+        background-color: #e50914;
+        color: #ffffff;
+        padding: 0.85rem 2.25rem;
+        border-radius: 28px;
+        font-weight: 600;
+        font-size: 1.05rem;
+        text-decoration: none;
+        transition: all 0.25s ease;
+        box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+
+        &:hover {
+          background-color: #ff2a42;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(229, 9, 20, 0.6);
+        }
+      }
+
+      .btn-signup {
+        background-color: #1a202c;
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 0.85rem 2.25rem;
+        border-radius: 28px;
+        font-weight: 600;
+        font-size: 1.05rem;
+        text-decoration: none;
+        transition: all 0.25s ease;
+
+        &:hover {
+          border-color: #e50914;
+          background-color: rgba(229, 9, 20, 0.15);
+          transform: translateY(-2px);
+        }
+      }
+    }
+
+    .landing-admin-link a {
+      color: #64748b;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #e50914;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .landing-page-container .landing-content .landing-title {
+    font-size: 2.5rem;
+  }
+  .landing-page-container .landing-content .landing-actions {
+    flex-direction: column;
+  }
+}

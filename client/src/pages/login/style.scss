@@ -1,0 +1,131 @@
+.auth-page-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: radial-gradient(circle at center, #161c28 0%, #0b0e14 100%);
+
+  .auth-card {
+    background-color: #121620;
+    border: 1px solid rgba(229, 9, 20, 0.4);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 440px;
+    padding: 2.5rem 2.2rem;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(229, 9, 20, 0.15);
+
+    .auth-logo {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+
+      .logo-white {
+        color: #ffffff;
+      }
+      .logo-red {
+        color: #e50914;
+      }
+    }
+
+    .auth-subtitle {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+
+        label {
+          font-size: 0.88rem;
+          color: #cbd5e1;
+          font-weight: 500;
+        }
+      }
+
+      .form-checkbox {
+        display: flex;
+        align-items: center;
+
+        label {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.88rem;
+          color: #94a3b8;
+          cursor: pointer;
+
+          input[type="checkbox"] {
+            accent-color: #e50914;
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+
+      .btn-auth-submit {
+        background-color: #e50914;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        margin-top: 0.5rem;
+
+        &:hover:not(:disabled) {
+          background-color: #ff2a42;
+          transform: translateY(-1px);
+        }
+
+        &:disabled {
+          opacity: 0.65;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .auth-footer-links {
+      margin-top: 1.75rem;
+      text-align: center;
+      font-size: 0.88rem;
+      color: #94a3b8;
+
+      p {
+        margin-bottom: 0.5rem;
+
+        a {
+          color: #e50914;
+          text-decoration: none;
+          font-weight: 600;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .admin-switch a {
+        color: #64748b;
+        font-size: 0.82rem;
+
+        &:hover {
+          color: #e50914;
+        }
+      }
+    }
+  }
+}
