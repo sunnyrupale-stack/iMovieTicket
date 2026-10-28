@@ -1,0 +1,19 @@
+{
+  "name": "imovies",
+  "version": "1.0.0",
+  "description": "IMovies – Movie Ticket Booking Made Simple",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "start": "node server/server.js",
+    "server": "cd server && node server.js",
+    "server:dev": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "build:client": "cd client && npm run build",
+    "seed": "cd server && node scripts/seedDatabase.js"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.0",
+    "localtunnel": "^2.0.2"
+  }
+}
