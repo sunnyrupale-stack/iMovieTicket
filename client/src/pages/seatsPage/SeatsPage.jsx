@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -27,7 +27,7 @@ const SeatsPage = () => {
     const fetchShowDetails = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`/api/shows/getshow/${showId}`);
+        const res = await api.get(`/api/shows/getshow/${showId}`);
         if (res.data.success) {
           setShow(res.data.show);
           if (res.data.movie) setMovie(res.data.movie);
@@ -164,7 +164,7 @@ const SeatsPage = () => {
         poster: movie?.media || undefined,
       };
 
-      const res = await axios.post("/api/bookings/createbooking", {
+      const res = await api.post("/api/bookings/createbooking", {
         userEmail: user.email,
         showId: show.showId || show._id,
         ticketsData,

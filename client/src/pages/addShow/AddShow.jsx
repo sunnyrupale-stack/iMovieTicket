@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -26,8 +26,8 @@ const AddShow = () => {
       try {
         setFetchingOptions(true);
         const [theatresRes, moviesRes] = await Promise.all([
-          axios.get("/api/theatre"),
-          axios.get("/api/movie"),
+          api.get("/api/theatre"),
+          api.get("/api/movie"),
         ]);
         if (theatresRes.data.success) {
           setTheatres(theatresRes.data.theatres || []);
@@ -58,7 +58,7 @@ const AddShow = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post("/api/shows/addshow", {
+      const res = await api.post("/api/shows/addshow", {
         adminEmail: admin.email || "admin@imovies.com",
         theatreName: formData.theatreName,
         movieId: formData.movieId,

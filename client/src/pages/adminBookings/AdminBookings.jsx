@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -17,7 +17,7 @@ const AdminBookings = () => {
   const fetchBookings = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/api/bookings/allbookings");
+      const res = await api.get("/api/bookings/allbookings");
       if (res.data.success) {
         setBookings(res.data.bookings || []);
       }
@@ -37,7 +37,7 @@ const AdminBookings = () => {
     if (!window.confirm(`Cancel booking ${bookingId} and release seats back to inventory?`)) return;
 
     try {
-      const res = await axios.delete(`/api/bookings/cancelbooking/${bookingId}`);
+      const res = await api.delete(`/api/bookings/cancelbooking/${bookingId}`);
       if (res.data.success) {
         toast.info("Booking cancelled and seats released");
         setBookings((prev) =>
@@ -57,7 +57,7 @@ const AdminBookings = () => {
     if (!window.confirm(`Permanently delete booking record ${bookingId}?`)) return;
 
     try {
-      const res = await axios.delete(`/api/bookings/deletebooking/${bookingId}`);
+      const res = await api.delete(`/api/bookings/deletebooking/${bookingId}`);
       if (res.data.success) {
         toast.info("Booking permanently removed");
         setBookings((prev) => prev.filter((b) => b.bookingId !== bookingId));

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
@@ -104,7 +104,7 @@ const Bookings = () => {
     }
     try {
       setLoading(true);
-      const res = await axios.get(`/api/bookings/userbookings/${encodeURIComponent(user.email)}`);
+      const res = await api.get(`/api/bookings/userbookings/${encodeURIComponent(user.email)}`);
       if (res.data.success && Array.isArray(res.data.bookings)) {
         setBookings(res.data.bookings);
       } else {
@@ -131,7 +131,7 @@ const Bookings = () => {
       return;
 
     try {
-      const res = await axios.delete(`/api/bookings/cancelbooking/${bookingId}`);
+      const res = await api.delete(`/api/bookings/cancelbooking/${bookingId}`);
       if (res.data.success) {
         toast.info("Booking cancelled successfully and seats released");
         setBookings((prev) =>
@@ -151,7 +151,7 @@ const Bookings = () => {
     if (!window.confirm("Remove this ticket permanently from your booking history?")) return;
 
     try {
-      const res = await axios.delete(`/api/bookings/deletebooking/${bookingId}`);
+      const res = await api.delete(`/api/bookings/deletebooking/${bookingId}`);
       if (res.data.success) {
         toast.info("Ticket removed from your history");
         setBookings((prev) => prev.filter((b) => b.bookingId !== bookingId));

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -22,7 +22,7 @@ const FavoriteShows = () => {
 
     try {
       setLoading(true);
-      const res = await axios.get(`/api/favorite/getfavorites/${encodeURIComponent(user.email)}`);
+      const res = await api.get(`/api/favorite/getfavorites/${encodeURIComponent(user.email)}`);
       if (res.data.success) {
         setFavorites(res.data.favorites || []);
       }
@@ -40,7 +40,7 @@ const FavoriteShows = () => {
 
   const handleRemoveFavorite = async (movieId, movieName) => {
     try {
-      const res = await axios.post("/api/favorite/removefavorite", {
+      const res = await api.post("/api/favorite/removefavorite", {
         userEmail: user.email,
         movieId,
       });

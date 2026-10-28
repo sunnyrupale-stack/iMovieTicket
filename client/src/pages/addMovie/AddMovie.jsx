@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -25,7 +25,7 @@ const AddMovie = () => {
   const fetchMovies = async () => {
     try {
       setFetchingMovies(true);
-      const res = await axios.get("/api/movie");
+      const res = await api.get("/api/movie");
       if (res.data.success) {
         setMovies(res.data.movies || []);
       }
@@ -53,7 +53,7 @@ const AddMovie = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post("/api/movie/addmovie", formData);
+      const res = await api.post("/api/movie/addmovie", formData);
       if (res.data.success) {
         toast.success("Movie added successfully!");
         setFormData({
@@ -80,7 +80,7 @@ const AddMovie = () => {
     if (!window.confirm(`Delete movie ${movieName}?`)) return;
 
     try {
-      const res = await axios.delete(`/api/movie/deletemovie/${id}`);
+      const res = await api.delete(`/api/movie/deletemovie/${id}`);
       if (res.data.success) {
         toast.info("Movie deleted successfully");
         setMovies(movies.filter((m) => m._id !== id));

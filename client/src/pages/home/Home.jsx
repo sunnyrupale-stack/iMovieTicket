@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -26,7 +26,7 @@ const Home = () => {
       const url = searchQuery
         ? `/api/movie?search=${encodeURIComponent(searchQuery)}`
         : `/api/movie`;
-      const response = await axios.get(url);
+      const response = await api.get(url);
       if (response.data.success) {
         setMovies(response.data.movies || []);
       }
@@ -42,7 +42,7 @@ const Home = () => {
     const user = JSON.parse(localStorage.getItem("user") || "null");
     if (!user || !user.email) return;
     try {
-      const res = await axios.get(`/api/favorite/getfavorites/${encodeURIComponent(user.email)}`);
+      const res = await api.get(`/api/favorite/getfavorites/${encodeURIComponent(user.email)}`);
       if (res.data.success && res.data.favorites) {
         setFavoriteMovieIds(res.data.favorites.map((f) => f.movieId));
       }
@@ -67,14 +67,14 @@ const Home = () => {
     const isFav = favoriteMovieIds.includes(movie._id);
     try {
       if (isFav) {
-        await axios.post("/api/favorite/removefavorite", {
+        await api.post("/api/favorite/removefavorite", {
           userEmail: user.email,
           movieId: movie._id,
         });
         setFavoriteMovieIds((prev) => prev.filter((id) => id !== movie._id));
         toast.info(`Removed "${movie.movieName}" from your watchlist`);
       } else {
-        await axios.post("/api/favorite/addfavorite", {
+        await api.post("/api/favorite/addfavorite", {
           userEmail: user.email,
           movieId: movie._id,
           movieData: movie,

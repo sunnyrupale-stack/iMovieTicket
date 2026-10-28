@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -25,7 +25,7 @@ const AddTheatre = () => {
   const fetchTheatres = async () => {
     try {
       setFetching(true);
-      const res = await axios.get("/api/theatre");
+      const res = await api.get("/api/theatre");
       if (res.data.success) {
         setTheatres(res.data.theatres || []);
       }
@@ -53,7 +53,7 @@ const AddTheatre = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post("/api/theatre/addtheatre", formData);
+      const res = await api.post("/api/theatre/addtheatre", formData);
       if (res.data.success) {
         toast.success("Theatre added successfully!");
         setFormData({
@@ -79,7 +79,7 @@ const AddTheatre = () => {
     if (!window.confirm(`Delete theatre ${name}?`)) return;
 
     try {
-      const res = await axios.delete(`/api/theatre/deletetheatre/${id}`);
+      const res = await api.delete(`/api/theatre/deletetheatre/${id}`);
       if (res.data.success) {
         toast.info("Theatre deleted successfully");
         setTheatres(theatres.filter((t) => t._id !== id));

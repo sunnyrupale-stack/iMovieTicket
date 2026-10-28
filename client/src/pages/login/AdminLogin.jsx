@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import "./style.scss";
 
@@ -23,7 +23,7 @@ const AdminLogin = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post("/api/auth/admin/login", credentials);
+      const response = await api.post("/api/auth/admin/login", credentials);
       if (response.data.success) {
         localStorage.setItem("adminToken", response.data.token);
         localStorage.setItem("admin", JSON.stringify(response.data.user));

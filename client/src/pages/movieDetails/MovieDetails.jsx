@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -23,20 +23,20 @@ const MovieDetails = () => {
   const fetchMovieData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`/api/movie/getmovie/${id}`);
+      const res = await api.get(`/api/movie/getmovie/${id}`);
       if (res.data.success) {
         setMovie(res.data.movie);
       }
 
       // Fetch reviews
-      const reviewsRes = await axios.get(`/api/review/getreviews/${id}`);
+      const reviewsRes = await api.get(`/api/review/getreviews/${id}`);
       if (reviewsRes.data.success) {
         setReviews(reviewsRes.data.reviews || []);
       }
 
       // Check favorite
       if (user && user.email) {
-        const favRes = await axios.get(`/api/favorite/getfavorites/${user.email}`);
+        const favRes = await api.get(`/api/favorite/getfavorites/${user.email}`);
         if (favRes.data.success) {
           setIsFavorited(favRes.data.favorites.some((f) => f.movieId === id));
         }
@@ -61,14 +61,14 @@ const MovieDetails = () => {
 
     try {
       if (isFavorited) {
-        await axios.post("/api/favorite/removefavorite", {
+        await api.post("/api/favorite/removefavorite", {
           userEmail: user.email,
           movieId: id,
         });
         setIsFavorited(false);
         toast.info("Removed from watchlist");
       } else {
-        await axios.post("/api/favorite/addfavorite", {
+        await api.post("/api/favorite/addfavorite", {
           userEmail: user.email,
           movieId: id,
           movieData: movie,
@@ -96,7 +96,7 @@ const MovieDetails = () => {
 
     setSubmittingReview(true);
     try {
-      const res = await axios.post("/api/review/addreview", {
+      const res = await api.post("/api/review/addreview", {
         movieId: id,
         userEmail: user.email,
         username: user.username,

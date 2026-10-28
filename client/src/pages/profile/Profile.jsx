@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -25,7 +25,7 @@ const Profile = () => {
     const fetchUserProfile = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("/api/auth/getuser", {
+        const res = await api.get("/api/auth/getuser", {
           headers: { "auth-token": token },
         });
         if (res.data.success) {

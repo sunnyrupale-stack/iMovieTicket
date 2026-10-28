@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import "./style.scss";
 
@@ -40,7 +40,7 @@ const AdminRegister = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post("/api/auth/admin/register", {
+      const response = await api.post("/api/auth/admin/register", {
         username,
         email,
         password,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -22,9 +22,9 @@ const Admin = () => {
       const headers = { "auth-token": adminToken };
 
       const [showsRes, bookingsRes, statsRes] = await Promise.all([
-        axios.get("/api/shows/getallshows"),
-        axios.get("/api/bookings/allbookings"),
-        axios.get("/api/auth/admin/stats", { headers }).catch(() => ({ data: { stats: null } })),
+        api.get("/api/shows/getallshows"),
+        api.get("/api/bookings/allbookings"),
+        api.get("/api/auth/admin/stats", { headers }).catch(() => ({ data: { stats: null } })),
       ]);
 
       if (showsRes.data.success) {
@@ -64,14 +64,14 @@ const Admin = () => {
     if (!window.confirm(`Cancel show for ${movieName}? All attached customer bookings will also be marked as Cancelled and seats released.`)) return;
 
     try {
-      const res = await axios.put(`/api/shows/cancelshow/${id}`);
+      const res = await api.put(`/api/shows/cancelshow/${id}`);
       if (res.data.success) {
         toast.info("Show marked as Cancelled and customer bookings updated");
         setShows((prev) =>
           prev.map((s) => (s._id === id || s.showId === id ? { ...s, status: "Cancelled" } : s))
         );
         // Refresh bookings to reflect cancellations
-        const bRes = await axios.get("/api/bookings/allbookings");
+        const bRes = await api.get("/api/bookings/allbookings");
         if (bRes.data.success) setBookings(bRes.data.bookings || []);
       }
     } catch (err) {
@@ -83,7 +83,7 @@ const Admin = () => {
     if (!window.confirm(`Delete show for ${movieName} permanently?`)) return;
 
     try {
-      const res = await axios.delete(`/api/shows/deleteshow/${id}`);
+      const res = await api.delete(`/api/shows/deleteshow/${id}`);
       if (res.data.success) {
         toast.info("Show deleted successfully");
         setShows(shows.filter((s) => s._id !== id && s.showId !== id));

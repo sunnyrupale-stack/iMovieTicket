@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -38,7 +38,7 @@ const EditUserDetails = () => {
     setLoading(true);
 
     try {
-      const res = await axios.put("/api/auth/updateuser", formData, {
+      const res = await api.put("/api/auth/updateuser", formData, {
         headers: { "auth-token": token },
       });
 
